@@ -10,20 +10,20 @@
 //# software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //######################################################################################
 
-var net = require('net');
-const {startRecord} = require("./GazepointService");
-var parseString = require('xml2js').parseString;
+var net = require('net')
+const { startRecord } = require("./GazepointService")
+var parseString = require('xml2js').parseString
 
-var client = new net.Socket();
-client.setEncoding('utf8');
+var client = new net.Socket()
+client.setEncoding('utf8')
 console.log(client)
 client.connect({
-    host:'127.0.0.1', // Host machine IP
-    port:4242 // Gazepoint Port
-});
+    host: '127.0.0.1', // Host machine IP
+    port: 4242 // Gazepoint Port
+})
 
-client.on('connect',function(){
-    console.log('Connected with Gazepoint API server');
+client.on('connect', function () {
+    console.log('Connected with Gazepoint API server')
 
     // Send message to Gazepoint API server to enable data
     client.write('<GET ID="CALIBRATE_START" />\r\n')
@@ -37,24 +37,24 @@ client.on('connect',function(){
     client.write('<GET ID="CALIBRATE_RESULT_SUMMARY" />\r\n')
 
     // client.write('<GET ID="TRACKER_DISPLAY" />\r\n')
-});
+})
 
-client.on('data',function(data){
-  // Print Gazepoint data stream to console
-  console.log('data',data);
-  parseString(data, (err, result) => {
-      console.log(result)
-      if (result?.CAL
-          && result.CAL['$']
-          && result.CAL['$'].ID === 'CALIB_RESULT_PT'
-          && result.CAL['$'].PT === '5'
-      ) {
-          setTimeout(() => {
-              client.write('<SET ID="CALIBRATE_SHOW" STATE="0" />\r\n') //stop calibration
-              startRecord(client)
-          },3000)
-      }
-  })
-});
+client.on('data', function (data) {
+    // Print Gazepoint data stream to console
+    console.log('data', data)
+    parseString(data, (err, result) => {
+        console.log(result)
+        if (result?.CAL
+            && result.CAL['$']
+            && result.CAL['$'].ID === 'CALIB_RESULT_PT'
+            && result.CAL['$'].PT === '5'
+        ) {
+            setTimeout(() => {
+                client.write('<SET ID="CALIBRATE_SHOW" STATE="0" />\r\n') //stop calibration
+                startRecord(client)
+            }, 3000)
+        }
+    })
+})
 
 

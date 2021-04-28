@@ -11,5 +11,5 @@ const stopRecord = (client) => {
     // client.write('<SET ID="ENABLE_SEND_COUNTER" STATE="1" />\r\n')
 }
 
-exports.startRecord =  startRecord
+exports.startRecord = startRecord
 exports.stopRecord = stopRecord
