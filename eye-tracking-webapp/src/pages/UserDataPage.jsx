@@ -1,5 +1,6 @@
-import {Button, makeStyles, TextField} from '@material-ui/core'
-import {Form, Formik} from 'formik'
+import {Button, makeStyles, MenuItem, TextField} from '@material-ui/core'
+import { Form, Formik } from 'formik'
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -12,6 +13,31 @@ const useStyles = makeStyles(theme => ({
 }))
 const UserDataPage = () => {
   const classes = useStyles()
+  const genders = [
+    {
+      value: 'male',
+      label: 'Male'
+    },
+    {
+      value: 'female',
+      label: 'Female'
+    },
+    {
+      value: 'other',
+      label: 'Other',
+    },
+    {
+      value: 'none',
+      label: 'Prefer not to say'
+    }
+  ]
+
+  const income = [
+    {
+      value: '',
+      label: '<1500 RON'
+    }
+  ]
 
   return (
     <div>
@@ -26,7 +52,8 @@ const UserDataPage = () => {
           occupation: ''
         }}
         onSubmit={async (values) => {
-          await new Promise((r) => setTimeout(r, 500));
+          const users = await axios.get('http://localhost:3001/users')
+          console.log(users)
           alert(JSON.stringify(values, null, 2));
         }}
       >
@@ -59,10 +86,18 @@ const UserDataPage = () => {
           />
           <TextField
             id='sex'
+            select
+            labelId="demo-simple-select-label"
             name='sex'
             label='Sex'
             className={classes.input}
-          />
+          >
+            {genders.map(gender => (
+              <MenuItem value={gender.value} key={gender.value}>
+                {gender.label}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             id='occupation'
             name='occupation'
