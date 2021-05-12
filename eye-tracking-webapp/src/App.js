@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import UserDataPage from './pages/UserDataPage'
 import theme from './CustomTheme'
 import { ThemeProvider } from '@material-ui/core/styles'
+import StartButtonPage from './pages/StartButtonPage'
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
               </Route>
               <Route path={'/userData'}>
                 <UserDataPage />
+              </Route>
+              <Route path={'/startPage'}>
+                <StartButtonPage />
               </Route>
             </Switch>
           </BrowserRouter>

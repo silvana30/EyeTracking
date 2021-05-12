@@ -1,6 +1,7 @@
 import {Button, makeStyles, MenuItem, TextField} from '@material-ui/core'
-import { Form, Formik } from 'formik'
+import { Formik } from 'formik'
 import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -13,6 +14,9 @@ const useStyles = makeStyles(theme => ({
 }))
 const UserDataPage = () => {
   const classes = useStyles()
+
+  const history = useHistory()
+
   const genders = [
     {
       value: 'male',
@@ -32,7 +36,7 @@ const UserDataPage = () => {
     }
   ]
 
-  const income = [
+  const incomeList = [
     {
       value: 'interval1',
       label: '< 1500 RON'
@@ -58,79 +62,90 @@ const UserDataPage = () => {
         initialValues={{
           firstName: '',
           lastName: '',
-          email: '',
           age: 0,
-          sex: 'M',
-          occupation: ''
+          sex: 'male',
+          education: '',
+          income: 'interval1'
         }}
         onSubmit={async (values) => {
-          const users = await axios.get('http://localhost:3001/users')
+          const users = await axios.post('http://localhost:3001/users',values)
           console.log(users)
-          alert(JSON.stringify(values, null, 2));
+          history.push('/startPage')
         }}
       >
-        <Form className={classes.form}>
-          <TextField
-            id='firstName'
-            name='firstName'
-            label='First name'
-            className={classes.input}
-          />
-          <TextField
-            id='lastName'
-            name='lastName'
-            label='Last name'
-            className={classes.input}
-          />
-          <TextField
+        {props =>
+        (
+          <form className={classes.form} onSubmit={props.handleSubmit}>
+            <TextField
+              id='firstName'
+              name='firstName'
+              label='First name'
+              className={classes.input}
+              onChange={props.handleChange}
+            />
+            <TextField
+              id='lastName'
+              name='lastName'
+              label='Last name'
+              className={classes.input}
+              onChange={props.handleChange}
+            />
+            {/* <TextField
             id='email'
             name='email'
             label='Email'
             type='email'
             className={classes.input}
-          />
-          <TextField
-            id='age'
-            name='age'
-            label='Age'
-            type='number'
-            className={classes.input}
-          />
-          <TextField
-            id='sex'
-            select
-            name='sex'
-            label='Sex'
-            className={classes.input}
-          >
-            {genders.map(gender => (
-              <MenuItem value={gender.value} key={gender.value}>
-                {gender.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            id='education'
-            name='education'
-            label='Education'
-            multiline
-            className={classes.input}
-          />
-          <TextField
-            id='income'
-            select
-            name='income'
-            label='Income'
-            className={classes.input}
-          >
-            {income.map(option => (
-              <MenuItem value={option.value} key={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <Button type='submit'>Submit</Button>
-        </Form>
+          /> */}
+            <TextField
+              id='age'
+              name='age'
+              label='Age'
+              type='number'
+              className={classes.input}
+              onChange={props.handleChange}
+            />
+            <TextField
+              id='sex'
+              select
+              name='sex'
+              label='Sex'
+              defaultValue='male'
+              className={classes.input}
+              onChange={props.handleChange}
+            >
+              {genders.map(gender => (
+                <MenuItem value={gender.value} key={gender.value}>
+                  {gender.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              id='education'
+              name='education'
+              label='Education'
+              multiline
+              className={classes.input}
+              onChange={props.handleChange}
+            />
+            <TextField
+              id='income'
+              select
+              name='income'
+              label='Income'
+              defaultValue='interval1'
+              className={classes.input}
+              onChange={props.handleChange}
+            >
+              {incomeList.map(option => (
+                <MenuItem value={option.value} key={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <Button type='submit'>Submit</Button>
+          </form>
+        )}
       </Formik>
     </div>
   )
