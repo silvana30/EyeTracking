@@ -1,9 +1,9 @@
 const local = {
 	ip: 'localhost',
 	port: "27017",
-	database_name: "Users",
-	username: "claudia",
-	password: "claudia",
+	database_name: "admin",
+	username: "silva",
+	password: "silva",
 }
 
 exports.getConnectionConfig = function(environment, callback){

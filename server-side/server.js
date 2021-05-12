@@ -7,7 +7,7 @@ var express = require('express'),
     UserSchema = require('./models/UserSchema.js')
 var router = express.Router();
 var url = 'mongodb://localhost/User';
-var restPort = 3000
+var restPort = 3001
 var routes = require('./routes/RestRoutes');
 var dbConfig = require('./config/DBconfig.js');
 var bodyParser = require('body-parser')
@@ -27,8 +27,9 @@ var server = app.listen(restPort, function() {
 function connectToDatabase(environment) {
     mongoose.Promise = global.Promise;
     dbConfig.getConnectionConfig(environment, function(connectionConfig) {
-        mongoose.connect('mongodb://' + connectionConfig.username + ':' + connectionConfig.password + '@' + connectionConfig.ip + ':' + connectionConfig.port + '/' + connectionConfig.database_name + '?authSource=' + connectionConfig.database_name, { useNewUrlParser: true },  { useUnifiedTopology: true });
-        
+        mongoose.connect('mongodb://' + connectionConfig.username + ':' + connectionConfig.password + '@' + connectionConfig.ip + ':' + connectionConfig.port + '/' + connectionConfig.database_name + '?authSource=' + connectionConfig.database_name,
+          { useNewUrlParser: true },  { useUnifiedTopology: true });
+
         // CONNECTION EVENTS
         mongoose.connection.on('connected', function() {
             console.log('Mongoose connection open to ' + connectionConfig.ip);
