@@ -34,8 +34,20 @@ const UserDataPage = () => {
 
   const income = [
     {
-      value: '',
-      label: '<1500 RON'
+      value: 'interval1',
+      label: '< 1500 RON'
+    },
+    {
+      value: 'interval2',
+      label: '1501-2500 RON'
+    },
+    {
+      value: 'interval3',
+      label: '2501-3500 RON'
+    },
+    {
+      value: 'interval4',
+      label: '> 3500 RON'
     }
   ]
 
@@ -87,7 +99,6 @@ const UserDataPage = () => {
           <TextField
             id='sex'
             select
-            labelId="demo-simple-select-label"
             name='sex'
             label='Sex'
             className={classes.input}
@@ -99,12 +110,25 @@ const UserDataPage = () => {
             ))}
           </TextField>
           <TextField
-            id='occupation'
-            name='occupation'
-            label='Occupation'
+            id='education'
+            name='education'
+            label='Education'
             multiline
             className={classes.input}
           />
+          <TextField
+            id='income'
+            select
+            name='income'
+            label='Income'
+            className={classes.input}
+          >
+            {income.map(option => (
+              <MenuItem value={option.value} key={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
           <Button type='submit'>Submit</Button>
         </Form>
       </Formik>
