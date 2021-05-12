@@ -6,7 +6,7 @@ var UserSchema = new Schema({
 	userId: {
     type: String
   },
-    firstName:{
+  firstName:{
     type: String
   },
   lastName:{
@@ -25,7 +25,10 @@ var UserSchema = new Schema({
   sex: {
     type: String
   },
-  occupation: {
+  education: {
+    type: String
+  },
+  income: {
     type: String
   }
 });
