@@ -7,9 +7,15 @@ const useStyles = makeStyles(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
+    textAlign: 'start'
   },
   input: {
     marginBottom: '1rem'
+  },
+  btn: {
+    width: '35px',
+    alignSelf: 'center'
+
   }
 }))
 const UserDataPage = () => {
@@ -90,13 +96,6 @@ const UserDataPage = () => {
               className={classes.input}
               onChange={props.handleChange}
             />
-            {/* <TextField
-            id='email'
-            name='email'
-            label='Email'
-            type='email'
-            className={classes.input}
-          /> */}
             <TextField
               id='age'
               name='age'
@@ -143,7 +142,7 @@ const UserDataPage = () => {
                 </MenuItem>
               ))}
             </TextField>
-            <Button type='submit'>Submit</Button>
+            <Button className={classes.btn} type='submit'>Submit</Button>
           </form>
         )}
       </Formik>
