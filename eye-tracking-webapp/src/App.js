@@ -3,7 +3,9 @@ import HomePage from './pages/HomePage'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import UserDataPage from './pages/UserDataPage'
 import theme from './CustomTheme'
-import { ThemeProvider } from '@material-ui/core/styles'
+import {ThemeProvider} from '@material-ui/core/styles'
+import StartButtonPage from './pages/StartButtonPage'
+import PicturePage from './pages/PicturePage'
 
 function App() {
   return (
@@ -17,6 +19,12 @@ function App() {
               </Route>
               <Route path={'/userData'}>
                 <UserDataPage />
+              </Route>
+              <Route path={'/startPage'}>
+                <StartButtonPage />
+              </Route>
+              <Route path={'/framePage'}>
+                <PicturePage />
               </Route>
             </Switch>
           </BrowserRouter>
