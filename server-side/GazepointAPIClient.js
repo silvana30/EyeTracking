@@ -43,12 +43,13 @@ client.on('data', function (data) {
     // Print Gazepoint data stream to console
     console.log('data', data)
     parseString(data, (err, result) => {
-        console.log(result)
+        console.log('result', result)
         if (result?.CAL
             && result.CAL['$']
             && result.CAL['$'].ID === 'CALIB_RESULT_PT'
             && result.CAL['$'].PT === '5'
         ) {
+            //save result as calibration data
             setTimeout(() => {
                 client.write('<SET ID="CALIBRATE_SHOW" STATE="0" />\r\n') //stop calibration
                 startRecord(client)

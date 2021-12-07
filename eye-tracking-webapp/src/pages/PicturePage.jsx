@@ -22,20 +22,21 @@ const PicturePage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNextBtn((<Button
-        variant="contained"
-        color="primary"
+        variant='contained'
+        color='primary'
         className={classes.btn}
         endIcon={<ArrowForward/>}
       >
         Next
       </Button>))
-    }, 5000);
+      //stop rec
+    }, 10000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div>
-      <img src="/emag.png" alt="missing image" className={classes.img}/>
+      <img src='/emag.png' alt='missing image' className={classes.img}/>
       {nextBtn}
     </div>
   )
