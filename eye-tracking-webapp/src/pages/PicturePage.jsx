@@ -3,15 +3,6 @@ import {Button, makeStyles} from '@material-ui/core'
 import {ArrowForward} from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
-  aoi: {
-    width: '100px',
-    height: '100px',
-    position: 'absolute',
-    top: '70px',
-    left: '150px',
-    border: 'solid',
-    zIndex: -1
-  },
   div: {
     overflow: 'hidden'
   },
@@ -33,12 +24,27 @@ const PicturePage = () => {
   const wrapperRef = useRef(null)
   const imagesPathList = [
     {
-      id: 0, url: '/emag.png', roi: {}
+      id: 0, url: '/emag.png', aoi: {
+        xl: 460, yl: 340, xr: 540, yr: 380
+      }
     },
-    {id: 1, url: '/bootstrap.png'},
-    {id: 2, url: '/ted.png'},
-    {id: 3, url: '/utcn.png'}
+    {
+      id: 1, url: '/bootstrap.png', aoi: {
+        xl: 220, yl: 360, xr: 380, yr: 430
+      }
+    },
+    {
+      id: 2, url: '/ted.png', aoi: {
+        xl: 190, yl: 210, xr: 400, yr: 250
+      }
+    },
+    {
+      id: 3, url: '/utcn.png', aoi: {
+        xl: 1920, yl: 50, xr: 1200, yr: 110
+      }
+    }
   ]
+
   const [nextBtn, setNextBtn] = useState(null)
   const [currentImage, setCurrentImage] = useState(imagesPathList[0])
   const [endOfRecord, setEndOfRecord] = useState(false)
@@ -58,8 +64,8 @@ const PicturePage = () => {
     const timer = setTimeout(() => {
       setNextBtn((
         <Button
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           className={classes.btn}
           endIcon={<ArrowForward/>}
           onClick={handleNext}
@@ -81,6 +87,15 @@ const PicturePage = () => {
   console.log('wrapper', wrapperElem)
   console.log('window W H', screenWidth, screenHeight)
   console.log('screen', screen)
+  const styleOfRoi = {
+    width: `${currentImage.aoi.xr - currentImage.aoi.xl}px`,
+    height: `${currentImage.aoi.yr - currentImage.aoi.yl}px`,
+    position: 'absolute',
+    top: `${currentImage.aoi.yl}px`,
+    left: `${currentImage.aoi.xl}px`,
+    border: 'solid',
+    zIndex: -1 //uncomment to see the ROI border
+  }
 
   return (
     endOfRecord ?
@@ -90,12 +105,11 @@ const PicturePage = () => {
       </div> :
       <div className={classes.div} ref={wrapperRef}>
         <div
-          id="aoi"
-          className={classes.aoi}
+          id='aoi'
+          style={styleOfRoi}
           ref={aoiRef}
-          // style={{display: 'none'}}
         />
-        <img src={currentImage?.url} alt="missing" className={classes.img}/>
+        <img src={currentImage?.url} alt='missing' className={classes.img}/>
         {nextBtn}
       </div>
   )
