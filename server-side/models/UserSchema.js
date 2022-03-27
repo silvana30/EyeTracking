@@ -30,6 +30,10 @@ var UserSchema = new Schema({
   },
   income: {
     type: String
+  },
+  trackingData: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TrackingData"
   }
 });
 

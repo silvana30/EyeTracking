@@ -4,17 +4,15 @@ var path = require('path')
 var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
-    UserSchema = require('./models/UserSchema.js')
+    UserSchema = require('./models/UserSchema.js'),
+    TrackingDataSchema = require('./models/TrackingDataSchema.js'),
+    ImageSchema = require('./models/ImageSchema.js')
 var router = express.Router();
 var url = 'mongodb://localhost/User';
-var restPort = 3001
+var restPort = 3000
 var routes = require('./routes/RestRoutes');
 var dbConfig = require('./config/DBconfig.js');
 var bodyParser = require('body-parser')
-
-UserSchema.update({occupation: "occupation"}, {income:"income"}, {multi: true}, function(err, numberAffected){
-
-})
 
 app.use('/', router);
 app.use(bodyParser.json()); // support json encoded bodies
