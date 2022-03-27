@@ -13,7 +13,7 @@ var client = new net.Socket()
 client.setEncoding('utf8')
 
 function listUsers(req, res) {
-  User.find({}, function (error, users) {
+  User.find().populate('trackingData').exec({}, function (error, users) {
     if (error){
       console.log('ERROR: ', error)
       res.send(error);
