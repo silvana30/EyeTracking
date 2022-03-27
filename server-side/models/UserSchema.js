@@ -32,10 +32,10 @@ var UserSchema = new Schema({
   income: {
     type: String
   },
-  trackingData: {
+  trackingData: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "TrackingData"
-  }
+  }]
 });
 
 module.exports = mongoose.model('Users', UserSchema);
