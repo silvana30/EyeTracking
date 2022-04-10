@@ -38,7 +38,7 @@ var UserSchema = new Schema({
   }],
   calibrationData: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "CalibrationData"
+    ref: "Calibration"
 }]
 });
 

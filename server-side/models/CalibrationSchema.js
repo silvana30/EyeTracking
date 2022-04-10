@@ -11,8 +11,8 @@ var CalibrationSchema = new Schema({
         type: String
     },
     item: {
-        type: Strings
+        type: String
     }
 });
 
-module.exports = mongoose.model('CalibrationData', CalibrationSchema);
+module.exports = mongoose.model('Calibration', CalibrationSchema);

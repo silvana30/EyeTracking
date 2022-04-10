@@ -1,7 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ImageSchema = mongoose.model('ImageSchema')
 
 var AOISchema = new Schema({
 	x: {
