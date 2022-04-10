@@ -19,8 +19,9 @@ var AOISchema = new Schema({
   aoiId: {
     type: String
   },
-  image: {
-    type: ImageSchema
+  imageId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Image"
   }
 });
 

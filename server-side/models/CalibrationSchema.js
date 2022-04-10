@@ -4,8 +4,9 @@ var Schema = mongoose.Schema;
 
 var CalibrationSchema = new Schema({
     userId: {
-        type: String
-    },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users"
+      },
     summary :{
         type: String
     },
@@ -14,4 +15,4 @@ var CalibrationSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Calibration', CalibrationSchema);
+module.exports = mongoose.model('CalibrationData', CalibrationSchema);

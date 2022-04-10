@@ -35,7 +35,11 @@ var UserSchema = new Schema({
   trackingData: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "TrackingData"
-  }]
+  }],
+  calibrationData: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CalibrationData"
+}]
 });
 
 module.exports = mongoose.model('Users', UserSchema);

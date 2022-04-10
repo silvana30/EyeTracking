@@ -13,7 +13,11 @@ var ImageSchema = new Schema({
   trackingData: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "TrackingData"
-}]
+  }],
+  aoiData: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "AOI"
+  }]
 });
 
 module.exports = mongoose.model('Image', ImageSchema);
