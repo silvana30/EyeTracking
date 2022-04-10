@@ -3,6 +3,7 @@
 var mongoose = require('mongoose')
 var TrackingData = mongoose.model('TrackingData')
 var Users = mongoose.model('Users')
+var Images = mongoose.model('Image')
 var express = require('express')
 var route = express.Router()
 var net = require('net')
@@ -29,11 +30,16 @@ function insertTracking(req, res) {
   var newTracking = new TrackingData(req.body)
   newTracking.save(function (error, dataTracking) {
     if (error) {
-      console.log("INSERT USER error", error)
+      console.log("INSERT error", error)
     }
     Users.findOneAndUpdate({_id: req.body.userId}, {trackingData: dataTracking}, {upsert: true}).exec(function(err, user){
       if(err){
         console.log('USER not found: ', err)
+      }
+    })
+    Images.findOneAndUpdate({_id: req.body.imageId}, {trackingData: dataTracking}, {upsert: true}).exec(function(err, image){
+      if(err){
+        console.log('IMAGE not found: ', err)
       }
     })
     res.json(dataTracking)

@@ -5,7 +5,7 @@ var Image = mongoose.model('Image')
 var express = require('express')
 
 function listImages(req, res) {
-  TrackingData.find({}, function (error, images) {
+  Image.find().populate('trackingData').exec({}, function (error, images) {
     if (error){
       console.log('ERROR: ', error)
       res.send(error);
