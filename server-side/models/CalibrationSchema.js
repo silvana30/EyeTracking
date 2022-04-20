@@ -6,7 +6,7 @@ var CalibrationSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users"
-      },
+    },
     summary :{
         type: String
     },

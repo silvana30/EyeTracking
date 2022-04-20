@@ -16,26 +16,24 @@ function listCalibrations(req, res) {
       console.log('ERROR: ', error)
       res.send(error);
     }
-    console.log("LIST DATA TRACKED: ", calibrationData);
     res.json(calibrationData);
   })
 }
 
 function insertCalibration(req, res) {
-  console.log("NEW CALIBRATION DATA: ", req.body)
   // find user by userId <- sent in tracking data post
   // update user document with tracking id prop <-
   var newCalibration = new Calibration(req.body)
-  newCalibration.save(function (error, calibrationData) {
+  newCalibration.save(function (error, dataCalibration) {
     if (error) {
       console.log("INSERT error", error)
     }
-    Users.findOneAndUpdate({_id: req.body.userId}, {calibrationData: calibrationData}, {upsert: true}).exec(function(err, user){
+    Users.findOneAndUpdate({_id: req.body.userId}, {$push: {calibrationData: dataCalibration} }, {upsert: true}).exec(function(err, user){
       if(err){
         console.log('USER not found: ', err)
       }
     })
-    res.json(calibrationData)
+    res.json(dataCalibration)
   });
 };
 

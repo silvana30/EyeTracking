@@ -18,7 +18,6 @@ function listUsers(req, res) {
       console.log('ERROR: ', error)
       res.send(error);
     }
-    console.log("LIST USERS: ", users);
     res.json(users);
     // client.connect({
     //   host: 'localhost', // Host machine IP
@@ -28,8 +27,6 @@ function listUsers(req, res) {
 }
 
 function insertUser(req, res) {
-  console.log("NEW USER: ", req.body)
-
   var newUser = new User(req.body)
   newUser.save(function (error, user) {
     if (error) {

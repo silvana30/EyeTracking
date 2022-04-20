@@ -10,14 +10,11 @@ function listImages(req, res) {
       console.log('ERROR: ', error)
       res.send(error);
     }
-    console.log("LIST IMAGES: ", images);
     res.json(images);
   })
 }
 
 function insertImage(req, res) {
-  console.log("NEW Image: ", req.body)
-
   var newImage = new Image(req.body)
   newImage.save(function (error, image) {
     if (error) {

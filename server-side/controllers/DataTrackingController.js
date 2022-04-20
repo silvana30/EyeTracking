@@ -18,13 +18,11 @@ function listTrackings(req, res) {
       console.log('ERROR: ', error)
       res.send(error);
     }
-    console.log("LIST DATA TRACKED: ", dataTrackings);
     res.json(dataTrackings);
   })
 }
 
 function insertTracking(req, res) {
-  console.log("NEW DATA TRACKING: ", req.body)
   // find user by userId <- sent in tracking data post
   // update user document with tracking id prop <-
   var newTracking = new TrackingData(req.body)
@@ -32,12 +30,12 @@ function insertTracking(req, res) {
     if (error) {
       console.log("INSERT error", error)
     }
-    Users.findOneAndUpdate({_id: req.body.userId}, {trackingData: dataTracking}, {upsert: true}).exec(function(err, user){
+    Users.findOneAndUpdate({_id: req.body.userId}, {$push: {trackingData: dataTracking} }, {upsert: true}).exec(function(err, user){
       if(err){
         console.log('USER not found: ', err)
       }
     })
-    Images.findOneAndUpdate({_id: req.body.imageId}, {trackingData: dataTracking}, {upsert: true}).exec(function(err, image){
+    Images.findOneAndUpdate({_id: req.body.imageId}, {$push: {trackingData: dataTracking} }, {upsert: true}).exec(function(err, image){
       if(err){
         console.log('IMAGE not found: ', err)
       }
