@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 	userId: {
+    // 6240a1acff180e3450237619
     type: String
   },
   firstName:{
@@ -30,7 +31,15 @@ var UserSchema = new Schema({
   },
   income: {
     type: String
-  }
+  },
+  trackingData: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TrackingData"
+  }],
+  calibrationData: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Calibration"
+}]
 });
 
 module.exports = mongoose.model('Users', UserSchema);

@@ -13,28 +13,26 @@ var client = new net.Socket()
 client.setEncoding('utf8')
 
 function listUsers(req, res) {
-  User.find({}, function (error, users) {
-    if (error)
+  User.find().populate('trackingData').exec({}, function (error, users) {
+    if (error){
+      console.log('ERROR: ', error)
       res.send(error);
-    console.log("LIST USERS: ", users);
-    // res.json(users);
-    client.connect({
-      host: '127.0.0.1', // Host machine IP
-      port: 4242 // Gazepoint Port
-    })
+    }
+    res.json(users);
+    // client.connect({
+    //   host: 'localhost', // Host machine IP
+    //   port: 3000 // Gazepoint Port
+    // })
   })
 }
 
 function insertUser(req, res) {
-  console.log("NEW USER: ", req.body)
-
   var newUser = new User(req.body)
   newUser.save(function (error, user) {
     if (error) {
       console.log("INSERT USER error", error)
     }
     res.json(user)
-
   });
 };
 
@@ -65,30 +63,30 @@ client.on('data', function (data) {
   console.log('data', data)
   parseString(data, (err, result) => {
     console.log(result)
-    if (result?.CAL
-      && result.CAL['$']
-      && result.CAL['$'].ID === 'CALIB_RESULT_PT'
-      && result.CAL['$'].PT === '5'
-    ) {
-      setTimeout(() => {
-        client.write('<SET ID="CALIBRATE_SHOW" STATE="0" />\r\n') //stop calibration
-        startRecord(client)
-        setTimeout(() => {
-          stopRecord(client)
-        }, 3000)
-      }, 3000)
-    }
-    if (result?.ACK
-      && result.ACK['$']
-      && result.ACK['$'].ID === 'CALIBRATE_RESULT_SUMMARY'
-    ) {
-      //save data
-      console.log(result)
-    }
-    if (result?.REC
-      && result.REC['$']) {
-      //SAVE records
-      console.log(result)
-    }
+    // if (result?.CAL
+    //   && result.CAL['$']
+    //   && result.CAL['$'].ID === 'CALIB_RESULT_PT'
+    //   && result.CAL['$'].PT === '5'
+    // ) {
+    //   setTimeout(() => {
+    //     client.write('<SET ID="CALIBRATE_SHOW" STATE="0" />\r\n') //stop calibration
+    //     startRecord(client)
+    //     setTimeout(() => {
+    //       stopRecord(client)
+    //     }, 3000)
+    //   }, 3000)
+    // }
+    // if (result?.ACK
+    //   && result.ACK['$']
+    //   && result.ACK['$'].ID === 'CALIBRATE_RESULT_SUMMARY'
+    // ) {
+    //   //save data
+    //   console.log(result)
+    // }
+    // if (result?.REC
+    //   && result.REC['$']) {
+    //   //SAVE records
+    //   console.log(result)
+    // }
   })
 })
